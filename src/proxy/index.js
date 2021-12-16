@@ -1,0 +1,10 @@
+$.ajax({
+    url:"https://click.suning.cn/sa/jsConfig.action?dm=www.suning.com",
+    type:"GET",
+    success:function(data){
+       console.log(data)
+    },
+    error:function(){
+        console.log('err')
+    }
+})

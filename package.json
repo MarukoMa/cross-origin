@@ -1,0 +1,26 @@
+{
+  "name": "cross-origin",
+  "version": "1.0.0",
+  "description": "cross-origin",
+  "main": "server/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server/index.js",
+    "debug": "node --inspect server/index.js",
+    "pub": "sh publish.sh"
+  },
+  "respository": "https://github.com/MarukoMa/cross-origin.git",
+  "keywords": [
+    "cross-origin"
+  ],
+  "author": "MarukoMa",
+  "license": "ISC",
+  "dependencies": {
+    "jquery": "^3.6.0",
+    "koa": "^2.13.4",
+    "koa-logger": "^3.2.1",
+    "koa-proxy": "^1.0.0-alpha.3",
+    "koa-router": "^10.1.1",
+    "nodemon": "^2.0.15"
+  }
+}

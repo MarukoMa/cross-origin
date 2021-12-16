@@ -1,0 +1,11 @@
+$.ajax({
+    url:"http://127.0.0.1:2000/users/corsList",
+    data:{pageSize:5,currentPage:2,idNo:"321*****111"},
+    type:"GET",
+    success:function(data){
+        console.log(data)
+    },
+    error:function(){
+        console.log('err')
+    }
+})
