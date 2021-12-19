@@ -1,12 +1,12 @@
 $.ajax({
-    url:"http://127.0.0.1:2000/users/list",
+    url:"http://localhost:2000/users/list",
     type:"GET",
-    data:{pageSize:4,currentPage:1,idNo:"321*****111"},
+    data:{pageSize:4,currentPage:3},
     dataType:"JSONP",
     jsonp:"callback",
     jsonpCallback: 'userListInfo',
     success:function(data){
-        console.log(data.data)
+        $('html').append(`<div>jsonp返回数据${JSON.stringify(data)}</div>`)
     },
     error:function(){
         console.log('err')

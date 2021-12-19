@@ -1,10 +1,14 @@
 const koa = require('koa')
 const app = new koa()
+const koaCors = require('./koaCors')
 const router = require('./jsonpApi')
-const router1 = require('./corsApi')
-const router2 = require('./proxyApi')
-const static = require('./static') 
+const corsRouter = require('./corsApi')
+const userRouter = require('./userApi')
+// const proxyRouter = require('./proxyApi')
+const static = require('static-koa') 
 const logger = require('koa-logger');
+
+
 
 const opts = {
     htmlCache:false,   
@@ -19,12 +23,18 @@ app.use(router.routes());   /*启动路由*/
 app.use(router.allowedMethods());
 
 //cors跨域模拟
-app.use(router1.routes());   /*启动路由*/
-app.use(router1.allowedMethods());
+app.use(corsRouter.routes());   /*启动路由*/
+app.use(corsRouter.allowedMethods());
 
-//proxy
-app.use(router2.routes());   /*启动路由*/
-app.use(router2.allowedMethods());
+//服务器代理跨域模拟
+// app.use(proxyRouter.routes());   /*启动路由*/
+// app.use(proxyRouter.allowedMethods());
+
+//user增删改查,接口遵循Restful模式
+app.use(userRouter.routes());   /*启动路由*/
+app.use(userRouter.allowedMethods());
+app.use(koaCors());  
+
 
 app.use(static((__dirname +'/static'),opts));
 app.listen(2000,()=>{

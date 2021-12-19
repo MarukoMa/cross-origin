@@ -1,8 +1,9 @@
 $.ajax({
-    url:"https://click.suning.cn/sa/jsConfig.action?dm=www.suning.com",
+    url:"http://127.0.0.1:2000/sa/jsConfig.action",
     type:"GET",
+    data:{dm:"www.suning.com"},
     success:function(data){
-       console.log(data)
+        $('html').append(`<div>proxy返回数据${JSON.stringify(data)}</div>`)
     },
     error:function(){
         console.log('err')

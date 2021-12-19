@@ -7,13 +7,14 @@ router.get('/list',ctx => {
     const callbackName = ctx.query.callback || "callback"
     const pageSize = Number(ctx.query.pageSize)   //每页展示条数
     const currentPage =Number(ctx.query.currentPage)  //当前请求页数
-    const idNo = ctx.query.idNo //当前请求页数
     let resData = {
         code:"0000",
         data:[],
+        total:0,
         msg:"success"
     }
-    if(pageSize && currentPage && idNo){
+    if(pageSize && currentPage){
+        resData.total = listData.length
         resData.data = listData.slice(pageSize * (currentPage-1),pageSize * currentPage)
     }else{
         resData = {
