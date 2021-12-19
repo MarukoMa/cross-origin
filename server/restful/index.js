@@ -1,29 +1,28 @@
+const koa = require('koa')
+const app = new koa()
 const koaRouter = require('koa-router')
-const routerKoaCors = require('./koaCors')
+const routerKoaCors = require('../cors/koaCors')
 const router = new koaRouter()
-const fs =require('fs')
 const BodyParser = require('koa-bodyparser');
 const bodyparser= new BodyParser();
-const listData = require('./mock/lists.json')
+const listData = require('../mock/lists.json')
 
-router.use(routerKoaCors())
+app.use(routerKoaCors())
+app.use(bodyparser); 
+app.use(router.routes());   /*启动路由*/
+app.use(router.allowedMethods());
 
-router.use(bodyparser);
-
-//get users/:id 查询数据
-router.get('/users',ctx => {
+// 查询数据
+router.get('/users/:id',ctx => {
     let resData = {
       code:"0000",
-      data:[],
+      data:{},
       total:0,
       msg:"success"
     }
-    const {id,pageSize,currentPage}= ctx.query;
+    const {id}= ctx.params;
     if(id){
-        resData.data.push(listData.find(item => item.id == id));
-    }else if(pageSize && currentPage && !id){
-      resData.data = listData.slice(pageSize * (currentPage-1),pageSize * currentPage)
-      resData.total = listData.length
+        resData.data = listData.find(item => item.id == id);
     }else{
         resData = {
             code:"9999",
@@ -36,9 +35,7 @@ router.get('/users',ctx => {
 router.post('/users',ctx => {
   let resData = {
     code:"0000",
-    data:[],
-    total:0,
-    msg:"success"
+    msg:"新增成功"
   }
   const {name,idNumber} = ctx.request.body;
   if(name && idNumber){
@@ -47,8 +44,6 @@ router.post('/users',ctx => {
         name,
         idNumber
       })
-      resData.data = listData
-      resData.total = listData.length
   }else{
       resData = {
           code:"0001",
@@ -59,23 +54,16 @@ router.post('/users',ctx => {
 })
 //修改信息 //users/:id
 router.put('/users/:id', (ctx) => {
-  debugger
   let resData = {
     code:"0000",
-    data:[],
-    total:0,
-    msg:"success"
+    msg:"修改成功"
   }
   const { id } = ctx.params;
-  console.log(id)
   const { name,idNumber} = ctx.request.body;
   let user = listData.find(item => item.id == id);
-  console.log(user)
   if (user) {
       user.name = name;
       user.idNumber = idNumber;
-      resData.data = listData
-      resData.total = listData.length
   }else{
     resData = {
       code:"0001",
@@ -89,14 +77,11 @@ router.put('/users/:id', (ctx) => {
 router.delete('/users/:id', (ctx) => {
   let resData = {
     code:"0000",
-    data:[],
-    total:0,
-    msg:"success"
+    msg:"删除成功"
   }
     const { id } = ctx.params
     if(id){
-      resData.data = listData.filter(item => item.id != ctx.params.id);
-      resData.total = listData.length
+      listData.filter(item => item.id != ctx.params.id);
     }else{
       resData = {
         code:"0001",
@@ -105,6 +90,6 @@ router.delete('/users/:id', (ctx) => {
     }
     ctx.body = JSON.stringify(resData);
 })
-
-
-module.exports = router
+app.listen(4000,()=>{
+  console.log('http://localhost:4000')
+})

@@ -1,17 +1,20 @@
 {
   "name": "cross-origin",
   "version": "1.0.0",
-  "description": "cross-origin",
-  "main": "server/index.js",
+  "description": "cors,jsonp,proxy,restful",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server/index.js",
-    "debug": "node --inspect server/index.js",
+    "start": "nodemon index.js",
+    "debug": "node --inspect index.js",
     "pub": "sh publish.sh"
   },
   "respository": "https://github.com/MarukoMa/cross-origin.git",
   "keywords": [
-    "cross-origin"
+    "cors",
+    "jsonp",
+    "proxy",
+    "restful"
   ],
   "author": "MarukoMa",
   "license": "ISC",
@@ -22,6 +25,7 @@
     "koa-logger": "^3.2.1",
     "koa-proxy": "^1.0.0-alpha.3",
     "koa-router": "^10.1.1",
+    "koa2-proxy-middleware": "0.0.4",
     "nodemon": "^2.0.15",
     "static-koa": "^1.0.2"
   }

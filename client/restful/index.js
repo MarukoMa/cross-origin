@@ -1,0 +1,55 @@
+$('#add').click(()=>{
+    $.ajax({
+        url:"http://localhost:4000/users",
+        data:{name:'小新',idNumber:"321234202102213456"},
+        type:"POST",
+        dataType: "json",
+        success:function(data){
+            $('html').append(`<div>userPage新增返回数据${JSON.stringify(data)}</div>`)
+        },
+        error:function(){
+            console.log('err')
+        }
+    })
+})
+$('#revise').click(()=>{
+    $.ajax({
+        url:"http://localhost:4000/users/6",
+        data:{name:'小葵',idNumber:"321234202*******"},
+        type:"put",
+        dataType: "json",
+        success:function(data){
+            $('html').append(`<div>userPage新增返回数据${JSON.stringify(data)}</div>`)
+        },
+        error:function(){
+            console.log('err')
+        }
+    })
+})
+
+$('#delete').click(()=>{
+    $.ajax({
+        url:"http://localhost:4000/users/5",
+        data:{name:'小葵',idNumber:"321234202*******"},
+        type:"DELETE",
+        dataType: "json",
+        success:function(data){
+            $('html').append(`<div>userPage新增返回数据${JSON.stringify(data)}</div>`)
+        },
+        error:function(){
+            console.log('err')
+        }
+    })
+})
+$('#find').click(()=>{
+    $.ajax({
+        url:"http://localhost:4000/users/4",
+        type:"GET",
+        success:function(data){
+            $('html').append(`<div>userPage返回数据${JSON.stringify(data)}</div>`)
+        },
+        error:function(){
+            console.log('err')
+        }
+    })
+})
