@@ -1,4 +1,4 @@
-# cros-origin
+# cross-origin
 实现常见的几种跨域解决方式
 ## jsonp  
 * 优点  
